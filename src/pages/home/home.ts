@@ -10,6 +10,8 @@ export class HomePage implements OnInit {
 	score: number;
 	questions = <any>[];
 	round: number;
+	currentQuestion = {};
+	cardStatusClass: string;
 
   constructor(public navCtrl: NavController, private triviaService : TriviaService) {
 
@@ -30,18 +32,32 @@ export class HomePage implements OnInit {
   		this.questions.forEach((question, i) => {
   			this.questions[i].all_answers = this.shuffleArray([...question.incorrect_answers, question.correct_answer])
   		})
+
+  		this.setCurrentQuestion();
   	})
   }
 
   checkAnswer(answer, question){
+  	// next question callback
+  	const next = () => {
+			/* Remove current question */
+		  this.questions.pop();
+		  this.cardStatusClass = "";
+		  /* Queue up next question */
+		  this.setCurrentQuestion();
+  	}
+
   	/* Check if answer is correct */
     if (answer === question.correct_answer) {
+    	/* yay */
     	this.score += 10;
+    	this.cardStatusClass = "correctCard";
+    	setTimeout(next, 500)
+    } else {
+    	/* awww */
+    	this.cardStatusClass = "incorrectCard";
+    	setTimeout(next, 500)
     }
-
-    /* Remove question */
-    let index = this.questions.indexOf(question);
-    this.questions.splice(index, 1);
   }
 
   shuffleArray(array) {
@@ -52,5 +68,17 @@ export class HomePage implements OnInit {
     }
     return array;
   }
+
+  setCurrentQuestion(){
+  	/* Set currentQuestion to the final question in the questions array */
+  	this.currentQuestion = {};
+  	if(this.questions.length === 0){
+  		this.getQuestions();
+  	} else {
+  		this.currentQuestion = this.questions[this.questions.length - 1];
+  	}
+  }
+
+
 
 }

@@ -7,18 +7,18 @@
 <ion-content padding>
   <h2 class="flashit">SCORE: {{score}}</h2>
 
-  <ion-card *ngFor="let question of questions">
+  <ion-card *ngIf="currentQuestion.category" [ngClass]="cardStatusClass">
     <ion-card-header>
-      {{question.category}} ({{question.difficulty}})
+      {{currentQuestion.category}} ({{currentQuestion.difficulty}})
     </ion-card-header>
     <ion-card-content>
-      {{question.question}}
+      {{currentQuestion.question}}
     </ion-card-content>
     <ion-list>
-      <button (click)="checkAnswer(answer,question)" *ngFor="let answer of question.all_answers" ion-button outline>{{answer}}</button>
+      <button (click)="checkAnswer(answer,currentQuestion)" *ngFor="let answer of currentQuestion.all_answers" ion-button color="primary">{{answer}}</button>
     </ion-list>
   </ion-card>
 
-  <button *ngIf="questions.length==0" (click)="getQuestions()" ion-button color="secondary">MORE QUESTIONS!</button>
+  <!-- <button *ngIf="questions.length==0" (click)="getQuestions()" ion-button color="secondary">MORE QUESTIONS!</button> -->
   
 </ion-content>
