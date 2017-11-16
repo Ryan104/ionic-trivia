@@ -1,3 +1,31 @@
-page-home {
 
+page-home {
+	* { 
+		background-color: #0cf;
+		color: #0fc;
+	}
+
+	p {
+
+	}
+	
+	.flashit{
+  color:#f2f;
+	animation: flash linear 1s infinite;
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+}
+
+.pulseit{
+	-webkit-animation: pulse linear .5s infinite;
+	animation: pulse linear .5s infinite;
+}
+@keyframes pulse {
+	0% { width:200px; } 
+	50% { width:340px; } 
+	100% { width:200px; }
+}
 }
