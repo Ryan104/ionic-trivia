@@ -1,9 +1,44 @@
-
 page-home {
+	.score {
+		text-align: center;
+	}
 	.correctCard {
-		background-color: green;
+		animation: cardSuccess 0.5s ease;
 	}
 	.incorrectCard {
-		background-color: red;
+		animation: cardFail 0.5s ease;
+	}
+	.timeout {
+		color: red;
+		font-size: 3em;
 	}
 }
+
+@keyframes cardSuccess {
+	0% {
+		background-color: white;
+	}
+	50% {
+		background-color: green;
+		opacity: 1;
+	}
+	100% {
+		background-color: white;
+		opacity: 0.1;
+	}
+}
+
+@keyframes cardFail {
+	0% {
+		background-color: white;
+	}
+	50% {
+		background-color: red;
+		opacity: 1;
+	}
+	100% {
+		background-color: white;
+		opacity: 0.1;
+	}
+}
+

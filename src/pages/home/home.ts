@@ -12,6 +12,9 @@ export class HomePage implements OnInit {
 	round: number;
 	currentQuestion = {};
 	cardStatusClass: string;
+	timeRemaining: number;
+	timeStatus: string = "";
+	interval;
 
   constructor(public navCtrl: NavController, private triviaService : TriviaService) {
 
@@ -20,6 +23,16 @@ export class HomePage implements OnInit {
   ngOnInit(){
   	this.score = 0;
   	this.getQuestions();
+  	this.timeRemaining = 15;
+  	this.interval = setInterval(() => {
+  		this.timeRemaining--;
+  		if (this.timeRemaining < 10) {
+  			this.timeStatus = "timeout"
+  		}
+  		if (this.timeRemaining < 1){
+  			clearInterval(this.interval)
+  		}
+  	}, 1000);
   }
 
   /* GET QUESTION */
